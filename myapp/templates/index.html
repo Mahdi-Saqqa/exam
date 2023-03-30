@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DashBoard | </title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+    </head>
+
+    <body class=" d-flex flex-column">
+        <header>
+            <div class="nav justify-content-sm-between p-2 border-bottom">
+                <h3 class="h3">Welcome {{request.session.username}}</h3>
+                <div class="">
+                    <a href="/addpainting" class="h2">Add Painting</a>
+                    <a href="/logout" class="btn btn-primary ms-5">Log out</a>
+                </div>
+            </div>
+        </header>
+        <main class="container-fluid mt-5 ">
+            <div class="row">
+                <div class="col m-5 border">
+                    <h3 class="h3">Paintings</h3>
+
+                    {% for paint in paints %}
+                    <p><a href="/paint/{{paint.id}}">{{paint.title}}</a> by
+                        {{paint.add_by.first_name}}
+                        {{paint.add_by.last_name}}
+                        {% if request.session.userid is paint.add_by.id %}
+                        <a href="/paint/{{paint.id}}/delete">Delete</a> | <a
+                            href="/paint/{{paint.id}}/edit">edit</a>
+                        {% endif %}
+                    </p>
+                    {% endfor %}
+                </div>
+                <div class="col m-5 border">
+                    <h3 class="h3">Your purchased Paintings</h3>
+
+                    {% for paint in userpaints %}
+                    <p><a href="/paint/{{paint.id}}">{{paint.title}}</a> by
+                        {{paint.add_by.first_name}}
+                        {{paint.add_by.last_name}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+    </body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Paint </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+</head>
+
+<body class=" d-flex flex-column">
+    <header>
+        <div class="nav justify-content-sm-between p-2 border-bottom">
+            <h3 class="h3">Hello,{{request.session.username}}</h3>
+            <div class="">
+                <a href="/" class="h2">DashBoard</a>
+                <a href="/logout" class="btn btn-primary ms-5">Log out</a>
+            </div>
+        </div>
+    </header>
+    <div class="container m-5 w-75">
+        <div class="row m-5">
+            <div class="row mb-3 w-100 justify-content-center">
+                <div class="col-sm-8">
+                    <h3 class="h3">Add a Painting</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form action="/addpaintsubmit" method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3 w-100 justify-content-center">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="title" placeholder="Title">
+                            </div>
+                        </div>
+                        <div class="row mb-3 w-100 justify-content-center">
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="desc" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3 w-100 justify-content-center">
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="price" step=".01" placeholder="price">
+                            </div>
+                        </div>
+                        <div class="row mb-3 w-100 justify-content-center">
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="qts" placeholder="Quantity">
+                            </div>
+                        </div>
+                        <div class="row m-auto w-50 justify-content-between">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    <ul>
+                        {% for messege in messages %}
+                        <li>{{messege}}</li>
+                        {% endfor %}
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
